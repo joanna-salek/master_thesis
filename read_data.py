@@ -9,8 +9,11 @@ def fasta_parser(fasta_sequences):
   fasta_sequences = SeqIO.parse(handle, 'fasta')
   for fasta in fasta_sequences:
     t = re.search(pattern, fasta.description)
-    species.append(t.group())
-    seq.append(str(fasta.seq))
+    try:
+      species.append(t.group())
+    except AttributeError:
+      species.append(fasta.description)
+    seq.append((str(fasta.seq)).upper())
   handle.close()
   return species, seq
 

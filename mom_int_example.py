@@ -41,7 +41,7 @@ def example3():
 
 
 ################################################
-# EXAMPLE 5
+# EXAMPLE 6
 ################################################
 # draw phylogenetic tree based on hurst values for species
 def example6():
@@ -49,10 +49,23 @@ def example6():
       arr = []
       for key in intertia.keys():
             arr.append(intertia[key])
-      draw_tree(arr, list(intertia.keys()), "SPARC gene phylogenetic tree - hurst method")
+      draw_tree(arr, list(intertia.keys()), "SPARC gene phylogenetic tree - moments of inertia")
+
+
+################################################
+# EXAMPLE 5
+################################################
+# Neuroamidaze influenza viruses
+def example7():
+      intertia = intertia_from_fasta("influenza_viruses")
+      arr = []
+      for key in intertia.keys():
+            arr.append(intertia[key])
+      draw_tree(arr, list(intertia.keys()), "Influenza viruses phylogenetic tree - moments of inertia")
 
 # example1()
 # example2()
 # example3()
 # example4()
-example6()
+# example6()
+example7()

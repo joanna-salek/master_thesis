@@ -61,7 +61,7 @@ def example5():
       return new_dict
 
 ################################################
-# EXAMPLE 5
+# EXAMPLE 6
 ################################################
 # draw phylogenetic tree based on hurst values for species
 def example6():
@@ -71,9 +71,24 @@ def example6():
             arr.append([hurst["MK"][key]])
       draw_tree(arr, list(hurst["MK"].keys()), "SPARC gene phylogenetic tree - moments of inertia")
 
+################################################
+# EXAMPLE 7
+################################################
+# neuroamidaza wirusów grypy
+def example7():
+      hurst = hurst_from_fasta("influenza_viruses")
+      arr = []
+      for key in hurst["WS"].keys():
+            arr.append([hurst["WS"][key]])
+      draw_tree(arr, list(hurst["WS"].keys()), "Influenza phylogenetic tree - hurst method")
+
+
+
+
 # example1()
 # example2()
 # example3()
 # example4()
 # print (example5())
 # example6()
+# example7()

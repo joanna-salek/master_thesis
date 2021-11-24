@@ -52,13 +52,24 @@ def example4():
       arr = []
       for key in dft["WS"].keys():
             arr.append(dft["WS"][key])
-
       n = max([len(x) for x in arr])  # maksymalna dlugosc sewkecni
       arr = [T_m(x, n)[1:] for x in arr]  # wydluzone widma (do najdluzszej)
-
       draw_tree(arr, list(dft["WS"].keys()), "SPARC gene phylogenetic tree - DFT method")
+
+################################################
+# EXAMPLE 5
+################################################
+def example5():
+      dft = DFT_from_fasta("influenza_viruses")
+      arr = []
+      for key in dft["RY"].keys():
+            arr.append(dft["RY"][key])
+      n = max([len(x) for x in arr])  # maksymalna dlugosc sewkecni
+      arr = [T_m(x, n)[1:] for x in arr]  # wydluzone widma (do najdluzszej)
+      draw_tree(arr, list(dft["RY"].keys()), "Influenza viruses phylogenetic tree - DFT method")
 
 # example1()
 # example2()
 # example3()
 # example4()
+example5()
