@@ -91,4 +91,8 @@ def example7():
 # example4()
 # print (example5())
 # example6()
+<<<<<<< HEAD
 # example7()
+=======
+example7()
+>>>>>>> examples with influenza viruses
