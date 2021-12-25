@@ -1,5 +1,5 @@
-from chaos_game import DNA, intertia_from_fasta, draw_tree
-import numpy as np
+from DFT.DFT import DFT_CGR, DFT_from_fasta, T_m
+from app.chaos_game import draw_tree
 
 ################################################
 # EXAMPLE 1
@@ -17,17 +17,21 @@ def example1():
             "AGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCT" \
             "TCTCTGAGAGAGAGAGAAATCTTCTCTGAGAG"
 
-      i = DNA(seq, 2, False)
-      print (i.DNA_descriptors())
+      d = DFT_CGR(seq)
+      print(d.get_DFT())
+      d.plot_CGR()
 
 ################################################
 # EXAMPLE 2
 ################################################
 # read file from fasta with only one seq in it
+# you can enable drawing chaos game representation
+# and choose CGR type
 def example2():
-      intertia = intertia_from_fasta("one_file_test.fasta")
-      for key in intertia.keys():
-            print(key, intertia[key])
+      dft = DFT_from_fasta("../in/one_file_test.fasta", True, CGR_types="RY")
+      for key in dft.keys():
+            print(key, dft[key])
+
 
 ################################################
 # EXAMPLE 3
@@ -35,37 +39,37 @@ def example2():
 # read file from fasta with multiple seq in it
 # fasta parser will divide it on sequences and species
 def example3():
-    intertia = intertia_from_fasta("SPARC_refseq_transcript.fasta")
-    for key in intertia.keys():
-        print(key, intertia[key])
+      dft = DFT_from_fasta("../in/SPARC_refseq_transcript.fasta")
+      for key in dft.keys():
+            print(key, dft[key])
 
 
 ################################################
-# EXAMPLE 6
+# EXAMPLE 4
 ################################################
-# draw phylogenetic tree based on hurst values for species
-def example6():
-      intertia = intertia_from_fasta("SPARC_refseq_transcript.fasta")
+def example4():
+      dft = DFT_from_fasta("../in/SPARC_refseq_transcript.fasta")
+      print (dft)
       arr = []
-      for key in intertia.keys():
-            arr.append(intertia[key])
-      draw_tree(arr, list(intertia.keys()), "SPARC gene phylogenetic tree - moments of inertia")
-
+      for key in dft["WS"].keys():
+            arr.append(dft["WS"][key])
+      n = max([len(x) for x in arr])  # maksymalna dlugosc sewkecni
+      arr = [T_m(x, n)[1:] for x in arr]  # wydluzone widma (do najdluzszej)
+      draw_tree(arr, list(dft["WS"].keys()), "SPARC gene phylogenetic tree - DFT method")
 
 ################################################
 # EXAMPLE 5
 ################################################
-# Neuroamidaze influenza viruses
-def example7():
-      intertia = intertia_from_fasta("influenza_viruses")
+def example5():
+      dft = DFT_from_fasta("../in/influenza_viruses")
       arr = []
-      for key in intertia.keys():
-            arr.append(intertia[key])
-      draw_tree(arr, list(intertia.keys()), "Influenza viruses phylogenetic tree - moments of inertia")
+      for key in dft["RY"].keys():
+            arr.append(dft["RY"][key])
+      n = max([len(x) for x in arr])  # maksymalna dlugosc sewkecni
+      arr = [T_m(x, n)[1:] for x in arr]  # wydluzone widma (do najdluzszej)
+      draw_tree(arr, list(dft["RY"].keys()), "Influenza viruses phylogenetic tree - DFT method")
 
 # example1()
 # example2()
 # example3()
 # example4()
-# example6()
-example7()
