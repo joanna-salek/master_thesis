@@ -1,6 +1,10 @@
+import pandas as pd
 
+df = pd.read_csv(r"C:\Users\joann\PycharmProjects\magisterka\out\viruses_types.csv")
+df.columns = ["HOST", "REGION", "number", "YEAR", "GROUP"]
 
-def pole_trojkata(a, h):
-    return 1/2 * a * h
-
-print (pole_trojkata(4, 6))
+df.drop('number',axis='columns', inplace=True)
+print (df)
+df = df.to_html()
+with open(r"C:\Users\joann\PycharmProjects\magisterka\out\viruses_types.html", "w") as file:
+    file.write(df)

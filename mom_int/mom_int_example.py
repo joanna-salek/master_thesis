@@ -1,5 +1,5 @@
 from app.helpers import draw_tree
-from mom_int.mom_int import DNA, intertia_from_fasta
+from mom_int import DNA, intertia_from_fasta
 
 
 ################################################
@@ -46,7 +46,7 @@ def example3():
 ################################################
 # EXAMPLE 6
 ################################################
-# draw phylogenetic tree based on hurst values for species
+# draw phylogenetic tree based on hurst_exponent values for species
 def example6():
     intertia = intertia_from_fasta("../in/SPARC_refseq_transcript.fasta")
     arr = []
@@ -70,5 +70,5 @@ def example7():
 # example2()
 # example3()
 # example4()
-# example6()
+example6()
 # example7()

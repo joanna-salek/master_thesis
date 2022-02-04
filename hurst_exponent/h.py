@@ -1,6 +1,6 @@
+from hurst import compute_Hc
 from app.chaos_game import CGR
 import matplotlib.pyplot as plt
-from hurst import compute_Hc
 import pandas as pd
 import os
 from app.read_data import fasta_parser
@@ -9,7 +9,7 @@ from app.read_data import fasta_parser
 class Hurst_CGR(CGR):
     def __init__(self, seq, kind="RY"):
         super().__init__(seq, kind)
-        self.hurst, self.c, self.data = compute_Hc(self.z_values, kind="change", simplified=True)
+        self.hurst, self.c, self.data = compute_Hc(self.z_values, kind="change", simplified=False)
 
     def get_hurst(self):
         return self.hurst
@@ -47,8 +47,9 @@ def hurst_from_fasta(input_file, draw_CGR=False, CGR_types=("RY", "MK", "WS")):
     else:
         d = {}
         for r in range(len(data[0])):
-            d[data[0][r]] = hurst_data(str(CGR_types), data[1][r], draw_CGR)
-        items[str(CGR_types)] = d
+            d[data[0][r]] = hurst_data(", ".join(CGR_types), data[1][r], draw_CGR)
+        items[", ".join(CGR_types)] = d
+    print (items)
     return items
 
 
@@ -56,7 +57,7 @@ def save_hurst_table(hurst):
     out = ""
     for key in hurst.keys():
         item = hurst[key]
-        df = pd.DataFrame.from_dict(item, orient='index', columns=["hurst value"])
+        df = pd.DataFrame.from_dict(item, orient='index', columns=["hurst_exponent value"])
         print(df)
         out = rf"out\index_{key}.html"
         with open(out, "w") as f:

@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from scipy.cluster.hierarchy import dendrogram, linkage  # to generate a tree
 from scipy.spatial.distance import pdist, euclidean
 
+from app.helpers import get_key
+
 
 class CGR:
 
@@ -12,9 +14,10 @@ class CGR:
         self.vertices = {}
         self.complex = []
         self.seq = seq
-        if kind in {"RY", "MK", "WS"}:
+        if kind in ("RY", "MK", "WS"):
             self.kind = kind
         else:
+            print (kind)
             self.kind = "RY"
             print("Warning: not valid kind of vertices. Vertices set to defaulft RY")
         self.assign_vertices()
