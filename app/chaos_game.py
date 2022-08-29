@@ -1,4 +1,5 @@
 import numpy as np
+import re
 import matplotlib.pyplot as plt
 from scipy.cluster.hierarchy import dendrogram, linkage  # to generate a tree
 from scipy.spatial.distance import pdist, euclidean
@@ -13,11 +14,10 @@ class CGR:
         self.z_values = []
         self.vertices = {}
         self.complex = []
-        self.seq = seq
+        self.seq = "".join(c for c in seq if c in ["A", "C", "T", "G"])
         if kind in ("RY", "MK", "WS"):
             self.kind = kind
         else:
-            print (kind)
             self.kind = "RY"
             print("Warning: not valid kind of vertices. Vertices set to defaulft RY")
         self.assign_vertices()
@@ -64,7 +64,7 @@ class CGR:
     def plot_CGR(self):
         xs = [ele[0] for ele in self.coordinates]
         ys = [ele[1] for ele in self.coordinates]
-        color = ['g']
+        color = ['r']
 
         # Select length of axes and the space between tick labels
         xmin, xmax, ymin, ymax = 0, 1, 0, 1

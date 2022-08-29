@@ -6,7 +6,7 @@ from app.read_data import fasta_parser
 
 class DNA:
     def __init__(self, seq, dim, desc1):
-        self.seq = seq
+        self.seq = "".join(c for c in seq if c in ["A", "C", "T", "G"])
         self.dim = dim
         self.N = len(seq)
         self.desc1 = desc1

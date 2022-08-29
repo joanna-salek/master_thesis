@@ -1,4 +1,6 @@
-from app.helpers import draw_tree, euclidean_matrix, distance_tree
+from app.helpers import draw_tree, euclidean_matrix, distance_tree, get_species_list_SPARC, get_NCBI_IDS_list_influenza, \
+      get_species_list_coronaviruses
+from hurst_exponent.h import Hurst_CGR
 from hurst_exponent import h
 
 from app.read_data import fasta_parser
@@ -14,18 +16,69 @@ def example1():
       seq = "AATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCT" \
             "CTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGA" \
             "GAGAGAAATCTTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTC" \
-            "TGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAG" \
+            "TGAGAGAGAGAGAAATCGTGAGTGCGCTAGCGATGCCGAGACCGATAGCGAT" \
+            "TTCTCTGAGAGAGCGTAGGCTAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCT" \
+            "CTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGA" \
+            "GAGAGAAATCTTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTC" \
+            "TGAGAGAGAGAGAAATCGTGAGTGCGCTAGCGATGCCGAGACCGATAGCGAT" \
+            "TTCTCTGAGAGAGCGTAGGCTCGAACGCTGACGAAGATCGCTATAGCATGCG" \
+            "AGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAATCTTCTCT" \
+            "GAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGA" \
+            "GAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATC" \
+            "TTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAG" \
+            "AGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCT" \
+            "TCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGCGAACGCTGACGAAGATCGCTATAGCATGCG" \
+            "AGAGAAATCTTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCT" \
+            "CTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGA" \
+            "GAGAGAAATCTTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTC" \
+            "TGAGAGAGAGAGAAATCGTGAGTGCGCTAGCGATGCCGAGACCGATAGCGAT" \
+            "TTCTCTGAGAGAGCGTAGGCTCGAACGCTGACGAAGATCGCTATAGCATGCG" \
+            "AGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAATCTTCTCT" \
+            "GAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGA" \
+            "GAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATC" \
+            "TTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAG" \
+            "AGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCT" \
+            "TCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAATCTTCTCT" \
+            "GAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGA" \
+            "GAGAAATCTTCTCTGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCT" \
+            "CTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGA" \
+            "GAGAGAAATCTTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTC" \
+            "TGAGAGAGAGAGAAATCGTGAGTGCGCTAGCGATGCCGAGACCGATAGCGAT" \
+            "TTCTCTGAGAGAGCGTAGGCTCGAACGCTGACGAAGATCGCTATAGCATGCG" \
+            "AGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAATCTTCTCT" \
+            "GAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGA" \
+            "GAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATC" \
+            "TTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAG" \
+            "AGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCT" \
+            "TCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGGAGAGAAATCTTCTCTGAGAGAGAGAGAAATC" \
+            "TTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAG" \
+            "AGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCT" \
+            "TCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCT" \
+            "CTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGA" \
+            "GAGAGAAATCTTCTAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCT" \
+            "CTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGA" \
+            "GAGAGAAATCTTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTC" \
+            "TGAGAGAGAGAGAAATCGTGAGTGCGCTAGCGATGCCGAGACCGATAGCGAT" \
+            "TTCTCTGAGAGAGCGTAGGCTCGAACGCTGACGAAGATCGCTATAGCATGCG" \
+            "AGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAATCTTCTCT" \
+            "GAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGA" \
+            "GAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATC" \
+            "TTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAG" \
+            "AGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCT" \
+            "TCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTC" \
+            "TGAGAGAGAGAGAAATCGTGAGTGCGCTAGCGATGCCGAGACCGATAGCGAT" \
+            "TTCTCTGAGAGAGCGTAGGCTCGAACGCTGACGAAGATCGCTATAGCATGCG" \
             "AGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAATCTTCTCT" \
             "GAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGA" \
             "GAGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATC" \
             "TTCTCTGAGAGAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAG" \
             "AGAAATCTTCTCTGAGAGAGAGAGAAATCTTCTCTGAGAGAGAGAGAAATCT" \
             "TCTCTGAGAGAGAGAGAAATCTTCTCTGAGAG"
-
-      z = h.Hurst_CGR(seq)
-      print(h.get_hurst())
+      z = Hurst_CGR(seq)
+      print(z.get_hurst())
       z.plot_CGR()
 
+example1()
 ################################################
 # EXAMPLE 2
 ################################################
@@ -33,7 +86,7 @@ def example1():
 # you can enable drawing chaos game representation
 # and choose CGR type
 def example2():
-      hurst = h.hurst_from_fasta("../in/one_file_test.fasta", True, CGR_types="RY")
+      hurst = h.hurst_from_fasta("../in/one_file_test.fasta", True)
       for key in hurst.keys():
             print(key, hurst[key])
 
@@ -71,7 +124,7 @@ def example5():
 ################################################
 # draw phylogenetic tree based on hurst_exponent values for species
 def example6():
-      hurst = h.hurst_from_fasta("../in/SPARC_refseq_transcript.fasta", CGR_types=["RY"])
+      hurst = h.hurst_from_fasta("../in/SPARC_refseq_transcript.fasta")
       arr = []
       for key in hurst["RY"].keys():
             arr.append([hurst["RY"][key]])
@@ -83,7 +136,7 @@ def example6():
 # neuroamidaza wirusów grypy
 def example7():
       from statistics import mean, stdev
-      hurst = h.hurst_from_fasta("../in/influenza_viruses", CGR_types=["WS"])
+      hurst = h.hurst_from_fasta("../in/influenza_viruses")
       type_cgr = "WS"
       arr = []
       count_H1N1 = []
@@ -121,20 +174,50 @@ def example7():
 def example8():
       data = fasta_parser("../in/influenza_viruses")
       hurst_list = []
+      print (data)
       for h in data[1]:
-            hurst = h.Hurst_CGR(h).get_hurst()
+            hurst = Hurst_CGR(h).get_hurst()
             hurst_list.append(hurst)
       matrix = euclidean_matrix(hurst_list)
       title = "influenza viruses phylogenetic tree - Hurst method (EUCLIDIAN DISTANCE)"
       organisms = data[0]
       distance_tree(matrix, organisms, title)
 
+def example9():
+      data = fasta_parser("../in/influenza_viruses")
+      hurst_list = []
+      for h in data[1]:
+            hurst = Hurst_CGR(h).get_hurst()
+            hurst_list.append(hurst)
+      matrix = euclidean_matrix(hurst_list)
+      title = "Drzewo filogenetyczne Wirusów Grypy - Metoda wykładnika Hursta (EUCLIDIAN DISTANCE)"
+      distance_tree(matrix, get_NCBI_IDS_list_influenza(), title)
 
-# example1()
+def example10():
+      data = fasta_parser("../in/coronaviruses.txt")
+      hurst_list = []
+      for h in data[1]:
+            hurst = Hurst_CGR(h).get_hurst()
+            hurst_list.append(hurst)
+      matrix = euclidean_matrix(hurst_list)
+      title = "Drzewo filogenetyczne Koronawirusów - Metoda wykładnika Hursta (EUCLIDIAN DISTANCE)"
+      distance_tree(matrix, get_species_list_coronaviruses(), title)
+
+def example11():
+      data = fasta_parser("../in/SPARC_refseq_transcript.fasta")
+      hurst_list = []
+      for h in data[1]:
+            hurst = Hurst_CGR(h).get_hurst()
+            hurst_list.append(hurst)
+      matrix = euclidean_matrix(hurst_list)
+      title = "Drzewo filogenetyczne SPARC - Metoda wykładnika Hursta (EUCLIDIAN DISTANCE)"
+      distance_tree(matrix, get_species_list_SPARC(), title)
+
+example1()
 # example2()
 # example3()
 # example4()
 # print (example5())
 # example6()
-# example7()
+# example9()
 

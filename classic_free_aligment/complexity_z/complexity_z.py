@@ -41,3 +41,5 @@ def fasta_tree_z_complexity(input_file, title):
     matrix = z_complex_matrix(data[1])
     organisms = data[0]
     distance_tree(matrix, organisms, title)
+
+

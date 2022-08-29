@@ -1,10 +1,36 @@
-import pandas as pd
+# import pandas as pd
+#
+# df = pd.read_csv(r"C:\Users\joann\PycharmProjects\magisterka\out\viruses_types.csv")
+# df.columns = ["HOST", "REGION", "number", "YEAR", "GROUP"]
+#
+# df.drop('number',axis='columns', inplace=True)
+# print (df)
+# df = df.to_html()
+# with open(r"C:\Users\joann\PycharmProjects\magisterka\out\viruses_types.html", "w") as file:
+#     file.write(df)
+# from app.chaos_game import CGR
+#
+# from app.chaos_game import CGR
+#
+# c = CGR("CAGATCGTTTAACGACTAGGTCAAATAGAGTGCTTTGATATCGGCATGTCTGGCTTTAGAATTCAGTATAGTGCGCTGATCCGAGTCGAGATAAAAACACCAGTACCCAAAACCAGGCGGGCTCGCCACGTCGGCTAATCCTGGTACATTTTGTAAACAATGTTCAGAAGAAAATTTGTGATAGAAGGACGAGTCACCGCGTACTAATAGCAACAACGATCGGCCGCACCATCCATTGTCGTGGTGACGCTCGGATTACACGGGAAAGGTGCTTGTGTCCCGACAGGCTAGGATATAATCCTGAGGCGTTACCCCAATCGTTCAGCGTGGGATTTGCTACAACTCCTGAGCGCTACATGTACGAAACCATGTTATGTATGCACAAGGCCGACAATAGGACGTAGCCTTGAAGTTAGTACGTAGCGTGGTCGCATAAGTACAGTAGATCCTCCCCGCGCATCCTATTTATTAAGTTAATTCTACAGCAATACGATCATATGCGGATCCGCAGTGGCCGGTAGACACACGTCTACCCCGCTGCTCAATGACCGGGACTAAAGAGGCGAAGATTATGGTGTGTGACCCGTTATGCTCGAGTTCGGTCAGAGCGTCATTGCGAGTAGTCGTTTGCTTTCTCAAACTCCGAGCGATTAAGCGTGACAGCCCCAGGGAACCCACAAAACGTGATCGCAGTCCATCCGATCATACACAGAAAGGAAGGTCCCCATACACCGACGCACCAGTTTACACGCCGTATGCATAAACGAGCCGCACGAACCAGAGAGCTTGAAGTGGACCTCTAGTTCCTCTACAAAGAACAGGTTGACCTGTCGCGAAGATGCCTTACCTAGATGCAATGACGGACGTATTCCTTTTGCCTCAACGGCTCCTGCTTTCGCTGAAATCCAAGACAGGCAACAGAAACCGCCTTTCGAAAGTGAGTCCTTCGTCTGTGACTAACTGTGCCAAATCGTCTTGCAAACTCCTAATCCAGTTTAAC")
+# print (c.plot_CGR())
+#
 
-df = pd.read_csv(r"C:\Users\joann\PycharmProjects\magisterka\out\viruses_types.csv")
-df.columns = ["HOST", "REGION", "number", "YEAR", "GROUP"]
+# import pandas as pd
+#
+# df = pd.read_csv(r"C:\Users\joann\PycharmProjects\magisterka\out\viruses_types.csv")
+# df.columns = ["HOST", "REGION", "number", "YEAR", "GROUP"]
+#
+# df.drop('number',axis='columns', inplace=True)
+# print (df)
+# df = df.to_html()
+# with open(r"C:\Users\joann\PycharmProjects\magisterka\out\viruses_types.html", "w") as file:
+#     file.write(df)
 
-df.drop('number',axis='columns', inplace=True)
-print (df)
-df = df.to_html()
-with open(r"C:\Users\joann\PycharmProjects\magisterka\out\viruses_types.html", "w") as file:
-    file.write(df)
+# with open (r"C:\Users\joann\PycharmProjects\magisterka\in\CORONAVIRUSES1.txt") as file:
+#     lines = file.readlines()
+#     for line in lines:
+#         if line.startswith(">"):
+#             print (line)
+#
+

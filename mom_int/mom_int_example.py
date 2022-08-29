@@ -1,4 +1,5 @@
-from app.helpers import draw_tree
+from app.helpers import draw_tree, get_species_list_coronaviruses, get_species_list_SPARC, get_NCBI_IDS_list_influenza
+from app.read_data import fasta_parser
 from mom_int import DNA, intertia_from_fasta
 
 
@@ -66,9 +67,43 @@ def example7():
         arr.append(intertia[key])
     draw_tree(arr, list(intertia.keys()), "Influenza viruses phylogenetic tree - moments of inertia")
 
+
+
+################################################
+# EXAMPLE 8
+################################################
+def example8():
+    data = fasta_parser("../in/coronaviruses.txt")
+    d = {}
+    for r in range(len(data[0])):
+        dna = DNA(data[1][r], 2, False)
+        d[data[0][r]] = dna.DNA_descriptors()
+    draw_tree(list(d.values()), get_species_list_coronaviruses(), "Drzewo filogenetyczne Koronawirusów - Momenty Bezwładności (Odległość euklidesowa)")
+
+
+def example9():
+    data = fasta_parser("../in/influenza_viruses")
+    d = {}
+    for r in range(len(data[0])):
+        dna = DNA(data[1][r], 2, False)
+        d[data[0][r]] = dna.DNA_descriptors()
+    draw_tree(list(d.values()), get_NCBI_IDS_list_influenza(), "Drzewo filogenetyczne Wirusów Grypy - Momenty Bezwładności (Odległość euklidesowa)")
+
+
+
+def example10():
+    data = fasta_parser("../in/SPARC_refseq_transcript.fasta")
+    d = {}
+    for r in range(len(data[0])):
+        dna = DNA(data[1][r], 2, False)
+        d[data[0][r]] = dna.DNA_descriptors()
+    draw_tree(list(d.values()), get_species_list_SPARC(), "Drzewo filogenetyczne SPARC - Momenty Bezwładności (Odległość euklidesowa)")
+
 # example1()
 # example2()
 # example3()
 # example4()
-example6()
-# example7()
+# example6()
+# example7
+example10()
+

@@ -41,26 +41,21 @@ def T_m(seq, m):
     return seq2
 
 
-def DFT_data(kind, seq, draw_CGR):
-    cgr = DFT_CGR(seq, kind)
+def DFT_data(seq, draw_CGR=False):
+    cgr = DFT_CGR(seq)
     if draw_CGR:
         cgr.plot_CGR()
-    DFT = cgr.get_DFT()
-    return DFT
+    return cgr.get_DFT()
 
 
-def DFT_from_fasta(input_file, draw_CGR=False, CGR_types=("RY", "MK", "WS")):
+def DFT_from_fasta(input_file, draw_CGR):
     items = {}
     data = fasta_parser(input_file)
-    if isinstance(CGR_types, list) and len(CGR_types) > 1:
-        for ele in CGR_types:
-            d = {}
-            for r in range(len(data[0])):
-                d[data[0][r]] = DFT_data(ele, data[1][r], draw_CGR)
-            items[ele] = d
+    d = {}
+    for r in range(len(data[0])):
+        d[data[0][r]] = DFT_data(data[1][r], draw_CGR)
     else:
         d = {}
         for r in range(len(data[0])):
-            d[data[0][r]] = DFT_data(str(CGR_types), data[1][r], draw_CGR)
-        items[str(CGR_types)] = d
-    return items
+            d[data[0][r]] = DFT_data(data[1][r], draw_CGR)
+    return d

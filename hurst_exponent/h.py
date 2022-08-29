@@ -27,30 +27,24 @@ class Hurst_CGR(CGR):
         plt.show()
 
 
-def hurst_data(kind, data, draw_CGR):
-    cgr = Hurst_CGR(data, kind)
+def hurst_data(data, draw_CGR):
+    cgr = Hurst_CGR(data)
     if draw_CGR:
         cgr.plot_CGR()
     hurst = cgr.get_hurst()
     return hurst
 
 
-def hurst_from_fasta(input_file, draw_CGR=False, CGR_types=("RY", "MK", "WS")):
-    items = {}
+def hurst_from_fasta(input_file, draw_CGR=False):
     data = fasta_parser(input_file)
-    if isinstance(CGR_types, list) and len(CGR_types) > 1:
-        for ele in CGR_types:
-            d = {}
-            for r in range(len(data[0])):
-                d[data[0][r]] = hurst_data(ele, data[1][r], draw_CGR)
-            items[ele] = d
+    d = {}
+    for r in range(len(data[0])):
+        d[data[0][r]] = hurst_data(data[1][r], draw_CGR)
     else:
         d = {}
         for r in range(len(data[0])):
-            d[data[0][r]] = hurst_data(", ".join(CGR_types), data[1][r], draw_CGR)
-        items[", ".join(CGR_types)] = d
-    print (items)
-    return items
+            d[data[0][r]] = hurst_data(data[1][r], draw_CGR)
+    return d
 
 
 def save_hurst_table(hurst):
@@ -63,3 +57,4 @@ def save_hurst_table(hurst):
         with open(out, "w") as f:
             f.write(df.to_html())
     print(fr"output file directory {os.path.abspath(os.getcwd())}\{out}")
+
